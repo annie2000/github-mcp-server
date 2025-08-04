@@ -10,6 +10,9 @@ WORKDIR /build
 
 RUN apk add --no-cache git
 
+#For GCP cloud run 
+COPY . .
+
 # Build the server
 # go build automatically download required module dependencies to /go/pkg/mod
 
