@@ -116,12 +116,62 @@ func main() {
 		fmt.Fprintln(w, "Stdio server started")
 	})
 
+	http.HandleFunc("/tools", toolsHandler)
+
 	fmt.Printf("Listening on port %s...\n", port)
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to start HTTP server: %v\n", err)
 		os.Exit(1)
 	}
+	
+	
+
 }
+
+
+// for tool definition and handler functions addition
+
+import (
+    "encoding/json"
+)
+
+type Tool struct {
+    Name        string      `json:"name"`
+    Description string      `json:"description"`
+    InputSpec   interface{} `json:"input_spec"`
+    OutputSpec  interface{} `json:"output_spec"`
+}
+
+func toolsHandler(w http.ResponseWriter, r *http.Request) {
+    tools := []Tool{
+        {
+            Name:        "Airbnb Search",
+            Description: "Search Airbnb listings",
+            InputSpec: map[string]string{
+                "location":  "string",
+                "check_in":  "date",
+                "check_out": "date",
+            },
+            OutputSpec: map[string]string{
+                "listings": "array",
+            },
+        },
+        {
+            Name:        "Airbnb Listing Details",
+            Description: "Get details for a specific listing",
+            InputSpec: map[string]string{
+                "listing_id": "string",
+            },
+            OutputSpec: map[string]string{
+                "details": "object",
+            },
+        },
+    }
+
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(map[string]interface{}{"tools": tools})
+}
+
 
 
 
