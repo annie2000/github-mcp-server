@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -128,12 +129,6 @@ func main() {
 
 }
 
-
-// for tool definition and handler functions addition
-
-import (
-    "encoding/json"
-)
 
 type Tool struct {
     Name        string      `json:"name"`
