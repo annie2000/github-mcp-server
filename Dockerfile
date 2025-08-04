@@ -5,8 +5,7 @@ ARG VERSION="dev"
 WORKDIR /build
 
 # Install git
-RUN --mount=type=cache,target=/var/cache/apk \
-    apk add git
+RUN apk add --no-cache git
 
 # Build the server
 # go build automatically download required module dependencies to /go/pkg/mod
