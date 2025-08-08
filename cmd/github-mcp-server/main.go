@@ -104,6 +104,13 @@ func main() {
 		port = "8080"
 	}
 
+	
+    // 🔍 환경 변수 디버깅 로그 추가
+    fmt.Println("DEBUG: GITHUB_PERSONAL_ACCESS_TOKEN =", os.Getenv("GITHUB_PERSONAL_ACCESS_TOKEN"))
+
+
+
+	
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "GitHub MCP Server is running")
 	})
